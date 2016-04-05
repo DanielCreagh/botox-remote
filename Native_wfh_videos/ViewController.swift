@@ -5,6 +5,8 @@
   
   class ViewController: UIViewController {
     
+    @IBOutlet var videoView: UIView!
+    
     private var firstAppear = true
     let screenSize : CGRect = UIScreen.mainScreen().bounds
     
@@ -33,10 +35,17 @@
       
       let playerController = AVPlayerViewController()
       playerController.player = player
+      playerController.videoGravity = AVLayerVideoGravityResize // . AVLayerVideoGravityResizeAspect is default.
       // Layer for display… Video plays at the full size of the iPad
       let playerLayer = AVPlayerLayer(player: player)
-      var view = UIView(frame: CGRectMake(0, 0, screenSize.width, screenSize.height))
-      self.view.layer.addSublayer(playerLayer)
+      
+      //playerLayer.frame = CGRectMake(0, 0, 400, 400)
+      playerController.view.frame = CGRectMake(0, 0, 400, 400)
+      
+      
+//      var view = UIView(frame: CGRectMake(0, 0, screenSize.width, screenSize.height))
+//      videoView.layer.addSublayer(playerLayer)
+      videoView.addSubview(playerController.view!)
       playerLayer.frame = view.bounds
       player.play()
 
